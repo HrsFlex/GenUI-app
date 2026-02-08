@@ -77,9 +77,9 @@ export function KanbanBoard({
         <div className="w-full rounded-lg border border-gray-200 bg-white p-6 shadow-sm">
             <h3 className="mb-6 text-xl font-semibold text-gray-900">{title}</h3>
 
-            <div className="grid gap-4 md:grid-cols-3">
+            <div className="flex gap-4 overflow-x-auto pb-2">
                 {columns.map((column) => (
-                    <div key={column} className="flex flex-col">
+                    <div key={column} className="flex flex-col min-w-[280px] flex-1">
                         {/* Column Header */}
                         <div className="mb-3 flex items-center justify-between rounded-t-lg bg-gray-100 px-4 py-3">
                             <h4 className="font-medium text-gray-700">{column}</h4>
@@ -97,12 +97,12 @@ export function KanbanBoard({
                                 >
                                     <div className="flex items-start gap-2">
                                         <GripVertical className="h-4 w-4 flex-shrink-0 text-gray-400" />
-                                        <div className="flex-1">
+                                        <div className="flex-1 min-w-0">
                                             <p className="text-sm font-medium text-gray-900">
                                                 {task.title}
                                             </p>
                                             {task.description && (
-                                                <p className="mt-1 text-xs text-gray-500">
+                                                <p className="mt-1 text-xs text-gray-500 line-clamp-2">
                                                     {task.description}
                                                 </p>
                                             )}

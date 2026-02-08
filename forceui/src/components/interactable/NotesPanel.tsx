@@ -148,7 +148,7 @@ export function NotesPanel({
             </div>
 
             {/* Notes Grid */}
-            <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
+            <div className="grid gap-4 md:grid-cols-2">
                 {notes.map((note) => {
                     const colorClasses = getColorClasses(note.color);
                     return (

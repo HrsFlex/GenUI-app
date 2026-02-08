@@ -49,8 +49,8 @@ export function StatsCard({ metrics, variant = "default" }: StatsCardProps) {
                         key={metric.id || index}
                         className="rounded-lg border border-gray-200 bg-white p-6 shadow-sm transition-shadow hover:shadow-md"
                     >
-                        <div className="flex items-start justify-between">
-                            <div className="flex-1">
+                        <div className="flex items-start justify-between gap-2">
+                            <div className="flex-1 min-w-0">
                                 <p className="text-sm font-medium text-gray-600">
                                     {metric.label}
                                 </p>
@@ -66,10 +66,10 @@ export function StatsCard({ metrics, variant = "default" }: StatsCardProps) {
                             {metric.change !== undefined && (
                                 <div
                                     className={`flex items-center gap-1 rounded-full px-2 py-1 ${trend === "up"
-                                            ? "bg-green-100 text-green-700"
-                                            : trend === "down"
-                                                ? "bg-red-100 text-red-700"
-                                                : "bg-gray-100 text-gray-700"
+                                        ? "bg-green-100 text-green-700"
+                                        : trend === "down"
+                                            ? "bg-red-100 text-red-700"
+                                            : "bg-gray-100 text-gray-700"
                                         }`}
                                 >
                                     {trend === "up" && <TrendingUp className="h-4 w-4" />}

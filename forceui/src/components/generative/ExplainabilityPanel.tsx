@@ -34,7 +34,7 @@ export function ExplainabilityPanel({
     layoutReasoning,
 }: ExplainabilityPanelProps) {
     return (
-        <div className="w-full max-w-3xl rounded-lg border border-purple-200 bg-gradient-to-br from-purple-50 to-blue-50 p-6 shadow-lg">
+        <div className="w-full rounded-lg border border-purple-200 bg-gradient-to-br from-purple-50 to-blue-50 p-6 shadow-lg overflow-hidden">
             {/* Header */}
             <div className="mb-6 flex items-center gap-3">
                 <HelpCircle className="h-7 w-7 text-purple-600" />
@@ -53,7 +53,7 @@ export function ExplainabilityPanel({
                 </div>
 
                 <div className="space-y-2">
-                    <p className="text-sm text-gray-600">
+                    <p className="text-sm text-gray-600 break-words">
                         <span className="font-medium">Input:</span> "{intentAnalysis.input}"
                     </p>
 

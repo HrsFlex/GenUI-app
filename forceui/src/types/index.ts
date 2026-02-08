@@ -18,7 +18,8 @@ export type Intent =
   | "persona_switch"
   | "ui_explain"
   | "export_data"
-  | "workflow_record";
+  | "workflow_record"
+  | "mcp_status";
 
 export interface IntentResult {
   primary_intent: Intent;

@@ -15,6 +15,8 @@ import { KanbanBoard } from "@/components/interactable/KanbanBoard";
 import { NotesPanel } from "@/components/interactable/NotesPanel";
 import { SummaryPanel } from "@/components/generative/SummaryPanel";
 import { ExplainabilityPanel } from "@/components/generative/ExplainabilityPanel";
+import { MCPStatusPanel } from "@/components/generative/MCPStatusPanel";
+import { WorkflowRecorder } from "@/components/interactable/WorkflowRecorder";
 import { AdaptiveGrid, GridItem } from "@/components/layout/AdaptiveGrid";
 import { ExportButton } from "@/components/export/ExportButton";
 import { ComponentSkeleton } from "@/components/ui/LoadingSkeleton";
@@ -23,16 +25,23 @@ import { useComponentOrchestration } from "@/hooks/useComponentOrchestration";
 import { usePersonaStore } from "@/stores/personaStore";
 import { useDecisionLogStore } from "@/stores/decisionLogStore";
 import { formatExplainabilityData } from "@/engine/explainability";
-import { Sparkles, Brain, Zap, ChevronDown, Rocket, Eye, Users, Cpu } from "lucide-react";
+import { Sparkles, Brain, Zap, ChevronDown, Rocket, Eye, Users, Cpu, Wifi, Github, Calendar, MessageSquare, Activity } from "lucide-react";
+import { useToast } from "@/components/ui/Toast";
+import { MCPDropdown } from "@/components/ui/MCPDropdown";
+import { AnalyticsDashboard } from "@/components/generative/AnalyticsDashboard";
+import { PersonaDropdown } from "@/components/ui/PersonaDropdown";
 
 export default function ForceUIPage() {
     const [showExplainability, setShowExplainability] = useState(false);
     const [isLoading, setIsLoading] = useState(true);
     const [showWelcome, setShowWelcome] = useState(true);
+    const [showAnalytics, setShowAnalytics] = useState(false);
+    const [processingStage, setProcessingStage] = useState("");
     const { processIntent, isProcessing, lastSelection } = useIntentProcessor();
     const { activeComponents } = useComponentOrchestration(lastSelection);
     const currentPersona = usePersonaStore((state) => state.currentPersona);
     const currentLog = useDecisionLogStore((state) => state.currentLog);
+    const toast = useToast();
 
     // Initial loading animation
     useEffect(() => {
@@ -40,10 +49,54 @@ export default function ForceUIPage() {
         return () => clearTimeout(timer);
     }, []);
 
+    // MCP Backend simulation - show connection toast once on load
+    useEffect(() => {
+        if (isLoading) return;
+
+        // Simulate MCP backend connection on load (one-time only)
+        const mcpTimer = setTimeout(() => {
+            toast.action("MCP Server Connected", "Connected to github-mcp, calendar-mcp, analytics-mcp");
+        }, 2000);
+
+        return () => clearTimeout(mcpTimer);
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [isLoading]); // Only depend on isLoading, not toast
+
     const handleIntentSubmit = async (input: string) => {
         setShowWelcome(false);
+
+        // Stage 1: Analyzing intent
+        setProcessingStage("🔍 Analyzing your intent...");
+        toast.magic("Processing Intent", `Parsing: "${input.slice(0, 40)}${input.length > 40 ? '...' : ''}"`);
+        await new Promise(r => setTimeout(r, 1200));
+
+        // Stage 2: Querying MCP services
+        setProcessingStage("🔌 Connecting to MCP services...");
+        toast.info("GitHub MCP", "Fetching repository context and recent activity...");
+        await new Promise(r => setTimeout(r, 1000));
+
+        toast.info("Calendar MCP", "Retrieving schedule and deadlines...");
+        await new Promise(r => setTimeout(r, 800));
+
+        toast.info("Analytics MCP", "Pulling performance metrics...");
+        await new Promise(r => setTimeout(r, 900));
+
+        // Stage 3: AI reasoning
+        setProcessingStage("🧠 AI reasoning & component selection...");
+        toast.action("AI Engine", "Analyzing context and selecting optimal components...");
+        await new Promise(r => setTimeout(r, 1100));
+
+        // Stage 4: Assembling UI
+        setProcessingStage("🎨 Assembling your personalized UI...");
+        toast.launch("Building UI", "Orchestrating components based on your persona...");
+        await new Promise(r => setTimeout(r, 800));
+
         await processIntent(input);
+
+        // Stage 5: Complete
+        setProcessingStage("");
         setShowExplainability(true);
+        toast.success("UI Ready!", `${activeComponents.length || 3} components assembled for you`);
     };
 
     if (isLoading) {
@@ -88,6 +141,23 @@ export default function ForceUIPage() {
                         </div>
 
                         <div className="flex items-center gap-3">
+                            {/* Interactive MCP Dropdown */}
+                            <div className="hidden md:block">
+                                <MCPDropdown
+                                    onOpenAnalytics={() => setShowAnalytics(true)}
+                                    onOpenChat={() => toast.info("Chat", "Opening /chat interface...")}
+                                />
+                            </div>
+
+                            {/* Analytics Button */}
+                            <button
+                                onClick={() => setShowAnalytics(true)}
+                                className="hidden lg:flex items-center gap-2 rounded-lg bg-indigo-100 px-3 py-2 text-sm font-medium text-indigo-700 transition-all hover:bg-indigo-200"
+                            >
+                                <Activity className="h-4 w-4" />
+                                Analytics
+                            </button>
+
                             {/* Export Button */}
                             <ExportButton />
 
@@ -95,8 +165,8 @@ export default function ForceUIPage() {
                             <button
                                 onClick={() => setShowExplainability(!showExplainability)}
                                 className={`group relative flex items-center gap-2 overflow-hidden rounded-lg px-4 py-2.5 text-sm font-medium transition-all duration-300 ${showExplainability
-                                        ? "bg-gradient-to-r from-purple-600 to-blue-600 text-white shadow-lg shadow-purple-500/25"
-                                        : "bg-white text-gray-700 shadow-md hover:shadow-lg"
+                                    ? "bg-gradient-to-r from-purple-600 to-blue-600 text-white shadow-lg shadow-purple-500/25"
+                                    : "bg-white text-gray-700 shadow-md hover:shadow-lg"
                                     }`}
                             >
                                 <Brain className={`h-4 w-4 transition-transform duration-300 ${showExplainability ? 'scale-110' : ''}`} />
@@ -108,13 +178,8 @@ export default function ForceUIPage() {
                                 )}
                             </button>
 
-                            {/* Current Persona Badge */}
-                            <div className="flex items-center gap-2 rounded-full bg-gradient-to-r from-purple-100 to-blue-100 px-4 py-2 shadow-sm">
-                                <Users className="h-4 w-4 text-purple-600" />
-                                <span className="text-sm font-medium text-purple-800">
-                                    {currentPersona.charAt(0).toUpperCase() + currentPersona.slice(1)}
-                                </span>
-                            </div>
+                            {/* Persona Switcher Dropdown */}
+                            <PersonaDropdown />
                         </div>
                     </div>
                 </div>
@@ -144,15 +209,15 @@ export default function ForceUIPage() {
                 </div>
 
                 {/* Processing Indicator */}
-                {isProcessing && (
+                {(isProcessing || processingStage) && (
                     <div className="mb-8 animate-fade-in">
                         <div className="flex items-center justify-center gap-4 rounded-xl border border-purple-200 bg-gradient-to-r from-purple-50 to-blue-50 p-6">
                             <div className="relative h-8 w-8">
                                 <div className="absolute inset-0 animate-spin rounded-full border-2 border-purple-200 border-t-purple-600" />
                             </div>
                             <div>
-                                <p className="font-medium text-purple-900">Analyzing your intent...</p>
-                                <p className="text-sm text-purple-600">Assembling the perfect UI components</p>
+                                <p className="font-medium text-purple-900">{processingStage || "Analyzing your intent..."}</p>
+                                <p className="text-sm text-purple-600">Watch the magic happen in toasts →</p>
                             </div>
                         </div>
                     </div>
@@ -258,9 +323,9 @@ export default function ForceUIPage() {
                             <div className="flex flex-wrap justify-center gap-3">
                                 {[
                                     "Plan a product launch",
-                                    "Show my task board",
+                                    "Show my integrations",
+                                    "Record a workflow",
                                     "Analyze user metrics",
-                                    "Switch to developer mode",
                                 ].map((example, i) => (
                                     <button
                                         key={example}
@@ -322,6 +387,9 @@ export default function ForceUIPage() {
                     </div>
                 </div>
             </footer>
+
+            {/* Analytics Dashboard Modal */}
+            <AnalyticsDashboard isOpen={showAnalytics} onClose={() => setShowAnalytics(false)} />
         </div>
     );
 }
@@ -429,6 +497,27 @@ function renderComponent(componentId: string, props?: Record<string, any>) {
 
         case "PersonaSwitcher":
             return <PersonaSwitcher variant="pills" />;
+
+        case "MCPStatusPanel":
+            return <MCPStatusPanel showDetails={true} />;
+
+        case "WorkflowRecorder":
+            return <WorkflowRecorder title="Workflow Recorder" />;
+
+        case "ExplainabilityPanel":
+            // ExplainabilityPanel requires decision log data
+            // Show a placeholder if rendered outside of the explainability context
+            return (
+                <div className="w-full rounded-lg border border-purple-200 bg-gradient-to-br from-purple-50 to-blue-50 p-6 shadow-lg">
+                    <div className="flex items-center gap-3 mb-4">
+                        <Brain className="h-6 w-6 text-purple-600" />
+                        <h3 className="text-xl font-semibold text-gray-900">AI Reasoning</h3>
+                    </div>
+                    <p className="text-sm text-gray-600">
+                        Toggle "Show AI Reasoning" to see detailed analysis of how components were selected.
+                    </p>
+                </div>
+            );
 
         default:
             return (

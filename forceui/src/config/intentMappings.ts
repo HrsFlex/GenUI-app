@@ -14,7 +14,8 @@ export const intentComponentMap: Record<Intent, string[]> = {
     persona_switch: ["PersonaSwitcher"],
     ui_explain: ["ExplainabilityPanel"],
     export_data: ["ExportPanel"],
-    workflow_record: ["WorkflowPanel"], // Will be mocked
+    workflow_record: ["WorkflowRecorder"],
+    mcp_status: ["MCPStatusPanel"],
 };
 
 export const intentKeywords: Record<Intent, string[]> = {
@@ -32,5 +33,6 @@ export const intentKeywords: Record<Intent, string[]> = {
     persona_switch: ["switch", "mode", "persona", "role", "become"],
     ui_explain: ["why", "explain", "reasoning", "how", "show me"],
     export_data: ["export", "download", "save", "share"],
-    workflow_record: ["record", "workflow", "capture", "replay"],
+    workflow_record: ["record", "workflow", "capture", "replay", "automation"],
+    mcp_status: ["integrations", "connections", "github", "calendar", "api", "mcp", "connected"],
 };

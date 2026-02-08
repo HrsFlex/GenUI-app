@@ -49,34 +49,34 @@ export function Timeline({ title, events }: TimelineProps) {
                             <div className="relative z-10 flex-shrink-0">
                                 <div
                                     className={`h-8 w-8 rounded-full border-4 ${isCompleted
-                                            ? "border-green-500 bg-green-100"
-                                            : isInProgress
-                                                ? "border-blue-500 bg-blue-100 animate-pulse"
-                                                : "border-gray-300 bg-gray-50"
+                                        ? "border-green-500 bg-green-100"
+                                        : isInProgress
+                                            ? "border-blue-500 bg-blue-100 animate-pulse"
+                                            : "border-gray-300 bg-gray-50"
                                         }`}
                                 />
                             </div>
 
                             {/* Event content */}
-                            <div className="flex-1 pb-8">
-                                <div className="flex items-baseline justify-between">
+                            <div className="flex-1 pb-8 min-w-0">
+                                <div className="flex items-baseline justify-between gap-4 flex-wrap">
                                     <h4 className="text-lg font-medium text-gray-900">
                                         {event.name}
                                     </h4>
-                                    <time className="text-sm text-gray-500">
+                                    <time className="text-sm text-gray-500 flex-shrink-0">
                                         {formatEventDate(event.date)}
                                     </time>
                                 </div>
-                                <p className="mt-2 text-sm text-gray-600">
+                                <p className="mt-2 text-sm text-gray-600 line-clamp-2">
                                     {event.description}
                                 </p>
                                 {status && (
                                     <span
                                         className={`mt-2 inline-block rounded-full px-2 py-1 text-xs font-medium ${isCompleted
-                                                ? "bg-green-100 text-green-700"
-                                                : isInProgress
-                                                    ? "bg-blue-100 text-blue-700"
-                                                    : "bg-gray-100 text-gray-700"
+                                            ? "bg-green-100 text-green-700"
+                                            : isInProgress
+                                                ? "bg-blue-100 text-blue-700"
+                                                : "bg-gray-100 text-gray-700"
                                             }`}
                                     >
                                         {status}

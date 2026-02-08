@@ -86,6 +86,22 @@ export const componentMetadata: ComponentMetadata[] = [
         personas: ["founder", "developer", "recruiter", "analyst"],
         priority: 10,
     },
+    {
+        id: "MCPStatusPanel",
+        name: "MCP Status Panel",
+        type: "generative",
+        intents: ["mcp_status"],
+        personas: ["founder", "developer", "analyst"],
+        priority: 9,
+    },
+    {
+        id: "WorkflowRecorder",
+        name: "Workflow Recorder",
+        type: "interactable",
+        intents: ["workflow_record"],
+        personas: ["founder", "developer", "analyst"],
+        priority: 8,
+    },
 ];
 
 export function getComponentMetadata(id: string): ComponentMetadata | undefined {

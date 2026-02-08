@@ -36,21 +36,21 @@ export function AdaptiveGrid({
 
     // Grid density classes
     const densityClasses = {
-        compact: "gap-3 p-4",
+        compact: "gap-4 p-4",
         comfortable: "gap-6 p-6",
         spacious: "gap-8 p-8",
     };
 
-    // Layout classes
+    // Layout classes - optimized for laptop/desktop with max 2 columns for readability
     const layoutClasses = {
-        grid: "grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3",
-        sidebar: "grid grid-cols-1 lg:grid-cols-[300px_1fr]",
+        grid: "grid grid-cols-1 lg:grid-cols-2",
+        sidebar: "grid grid-cols-1 lg:grid-cols-[350px_1fr]",
         fullscreen: "flex flex-col",
     };
 
     return (
         <div
-            className={`w-full ${layoutClasses[layout]} ${densityClasses[density]}`}
+            className={`w-full max-w-7xl mx-auto ${layoutClasses[layout]} ${densityClasses[density]}`}
         >
             {children}
         </div>
