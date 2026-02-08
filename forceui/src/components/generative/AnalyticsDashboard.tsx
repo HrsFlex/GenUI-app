@@ -107,7 +107,7 @@ export function AnalyticsDashboard({ isOpen, onClose }: AnalyticsDashboardProps)
                 animate={{ scale: 1, y: 0 }}
                 exit={{ scale: 0.9, y: 20 }}
                 transition={{ type: "spring", stiffness: 400, damping: 30 }}
-                className="w-full max-w-4xl max-h-[90vh] overflow-y-auto rounded-2xl bg-white shadow-2xl"
+                className="w-full max-w-4xl max-h-[90vh] overflow-y-auto rounded-2xl bg-white dark:bg-gray-900 shadow-2xl"
                 onClick={e => e.stopPropagation()}
             >
                 {/* Header */}
@@ -169,8 +169,8 @@ export function AnalyticsDashboard({ isOpen, onClose }: AnalyticsDashboardProps)
                     {/* Charts Row */}
                     <div className="grid gap-6 md:grid-cols-2 mb-6">
                         {/* Weekly Activity Chart */}
-                        <div className="rounded-xl border border-gray-200 bg-white p-5">
-                            <h3 className="mb-4 font-semibold text-gray-900">Weekly Activity</h3>
+                        <div className="rounded-xl border border-gray-200 dark:border-gray-800 bg-white dark:bg-gray-950 p-5">
+                            <h3 className="mb-4 font-semibold text-gray-900 dark:text-gray-100">Weekly Activity</h3>
                             <div className="flex items-end gap-2 h-40">
                                 {MOCK_CHART_DATA.map((day, i) => (
                                     <div key={day.name} className="flex-1 flex flex-col items-center gap-1">
@@ -240,8 +240,8 @@ export function AnalyticsDashboard({ isOpen, onClose }: AnalyticsDashboardProps)
                     </div>
 
                     {/* Recent Activity */}
-                    <div className="rounded-xl border border-gray-200 bg-white p-5">
-                        <h3 className="mb-4 font-semibold text-gray-900">Recent MCP Activity</h3>
+                    <div className="rounded-xl border border-gray-200 dark:border-gray-800 bg-white dark:bg-gray-950 p-5">
+                        <h3 className="mb-4 font-semibold text-gray-900 dark:text-gray-100">Recent MCP Activity</h3>
                         <div className="space-y-3">
                             {MOCK_ACTIVITIES.map((activity, i) => (
                                 <motion.div
@@ -249,13 +249,13 @@ export function AnalyticsDashboard({ isOpen, onClose }: AnalyticsDashboardProps)
                                     initial={{ opacity: 0, x: -20 }}
                                     animate={{ opacity: 1, x: 0 }}
                                     transition={{ delay: i * 0.1 }}
-                                    className="flex items-center gap-3 rounded-lg bg-gray-50 p-3"
+                                    className="flex items-center gap-3 rounded-lg bg-gray-50 dark:bg-gray-800/50 p-3"
                                 >
                                     <div className={`flex h-8 w-8 items-center justify-center rounded-lg ${activity.type === "github" ? "bg-gray-900 text-white" :
-                                            activity.type === "calendar" ? "bg-blue-600 text-white" :
-                                                activity.type === "analytics" ? "bg-emerald-600 text-white" :
-                                                    activity.type === "persona" ? "bg-purple-600 text-white" :
-                                                        "bg-indigo-600 text-white"
+                                        activity.type === "calendar" ? "bg-blue-600 text-white" :
+                                            activity.type === "analytics" ? "bg-emerald-600 text-white" :
+                                                activity.type === "persona" ? "bg-purple-600 text-white" :
+                                                    "bg-indigo-600 text-white"
                                         }`}>
                                         {activity.type === "github" && <GitBranch className="h-4 w-4" />}
                                         {activity.type === "calendar" && <Clock className="h-4 w-4" />}
@@ -289,17 +289,17 @@ function MetricCard({ icon: Icon, label, value, change, positive, color }: {
         <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            className="rounded-xl border border-gray-200 bg-white p-4"
+            className="rounded-xl border border-gray-200 dark:border-gray-800 bg-white dark:bg-gray-950 p-4"
         >
             <div className="flex items-center gap-3 mb-3">
                 <div className={`flex h-10 w-10 items-center justify-center rounded-lg ${color} text-white`}>
                     <Icon className="h-5 w-5" />
                 </div>
-                <span className="text-sm text-gray-600">{label}</span>
+                <span className="text-sm text-gray-600 dark:text-gray-400">{label}</span>
             </div>
             <div className="flex items-end justify-between">
-                <p className="text-2xl font-bold text-gray-900">{value}</p>
-                <div className={`flex items-center gap-1 text-sm ${positive ? "text-emerald-600" : "text-red-600"}`}>
+                <p className="text-2xl font-bold text-gray-900 dark:text-white">{value}</p>
+                <div className={`flex items-center gap-1 text-sm ${positive ? "text-emerald-600 dark:text-emerald-400" : "text-red-600 dark:text-red-400"}`}>
                     {positive ? <ArrowUpRight className="h-4 w-4" /> : <ArrowDownRight className="h-4 w-4" />}
                     <span>{change}</span>
                 </div>

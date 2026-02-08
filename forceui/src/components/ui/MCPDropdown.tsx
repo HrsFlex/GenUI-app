@@ -135,7 +135,7 @@ export function MCPDropdown({ onOpenAnalytics, onOpenChat }: MCPDropdownProps) {
                         animate={{ opacity: 1, y: 0, scale: 1 }}
                         exit={{ opacity: 0, y: -10, scale: 0.95 }}
                         transition={{ type: "spring", stiffness: 400, damping: 30 }}
-                        className="absolute right-0 top-full mt-2 w-80 rounded-xl border border-gray-200 bg-white p-4 shadow-xl z-50"
+                        className="absolute right-0 top-full mt-2 w-80 rounded-xl border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-900 p-4 shadow-xl z-50"
                     >
                         {/* Header */}
                         <div className="mb-4 flex items-center justify-between">
@@ -144,14 +144,14 @@ export function MCPDropdown({ onOpenAnalytics, onOpenChat }: MCPDropdownProps) {
                                     <Zap className="h-4 w-4 text-white" />
                                 </div>
                                 <div>
-                                    <h4 className="font-semibold text-gray-900">MCP Status</h4>
-                                    <p className="text-xs text-gray-500">{connectedCount}/{services.length} services online</p>
+                                    <h4 className="font-semibold text-gray-900 dark:text-gray-100">MCP Status</h4>
+                                    <p className="text-xs text-gray-500 dark:text-gray-400">{connectedCount}/{services.length} services online</p>
                                 </div>
                             </div>
                             <button
                                 onClick={handleRefreshAll}
                                 disabled={isRefreshing}
-                                className="flex h-8 w-8 items-center justify-center rounded-lg bg-gray-100 text-gray-600 transition-all hover:bg-gray-200 disabled:opacity-50"
+                                className="flex h-8 w-8 items-center justify-center rounded-lg bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300 transition-all hover:bg-gray-200 dark:hover:bg-gray-700 disabled:opacity-50"
                             >
                                 <RefreshCw className={`h-4 w-4 ${isRefreshing ? 'animate-spin' : ''}`} />
                             </button>
@@ -167,14 +167,14 @@ export function MCPDropdown({ onOpenAnalytics, onOpenChat }: MCPDropdownProps) {
                                         initial={{ opacity: 0, x: -20 }}
                                         animate={{ opacity: 1, x: 0 }}
                                         transition={{ delay: index * 0.1 }}
-                                        className="flex items-center gap-3 rounded-lg bg-gray-50 p-3 transition-all hover:bg-gray-100"
+                                        className="flex items-center gap-3 rounded-lg bg-gray-50 dark:bg-gray-800 p-3 transition-all hover:bg-gray-100 dark:hover:bg-gray-750"
                                     >
                                         <div className={`flex h-9 w-9 items-center justify-center rounded-lg ${service.color} text-white`}>
                                             <Icon className="h-4 w-4" />
                                         </div>
                                         <div className="flex-1 min-w-0">
                                             <div className="flex items-center gap-2">
-                                                <p className="text-sm font-medium text-gray-900">{service.name}</p>
+                                                <p className="text-sm font-medium text-gray-900 dark:text-gray-100">{service.name}</p>
                                                 {service.status === "connected" && (
                                                     <CheckCircle2 className="h-3 w-3 text-emerald-500" />
                                                 )}

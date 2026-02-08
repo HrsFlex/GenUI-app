@@ -12,6 +12,17 @@
 
 ForceUI is a **next-generation Generative UI framework** that revolutionizes how users interact with applications. Instead of navigating through fixed menus and predetermined workflows, users simply describe what they need in natural language, and ForceUI **automatically assembles the perfect interface**.
 
+## 📸 Gallery
+
+![Dashboard View](./screenshots/dashboard.png)
+*Dynamic Dashboard Generation*
+
+![Dark Mode](./screenshots/dark-mode.png)
+*Sleek Dark Mode Experience*
+
+![Explainability](./screenshots/explainability.png)
+*Transparent AI Reasoning*
+
 ## ✨ Core Features
 
 ### 1. 🧠 Intent-Driven UI Orchestration

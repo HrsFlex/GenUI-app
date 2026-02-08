@@ -6,6 +6,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
+import Link from "next/link";
 import { IntentChat } from "@/components/interactable/IntentChat";
 import { PersonaSwitcher } from "@/components/interactable/PersonaSwitcher";
 import { Timeline } from "@/components/generative/Timeline";
@@ -30,6 +31,7 @@ import { useToast } from "@/components/ui/Toast";
 import { MCPDropdown } from "@/components/ui/MCPDropdown";
 import { AnalyticsDashboard } from "@/components/generative/AnalyticsDashboard";
 import { PersonaDropdown } from "@/components/ui/PersonaDropdown";
+import { ModeToggle } from "@/components/ui/ModeToggle";
 
 export default function ForceUIPage() {
     const [showExplainability, setShowExplainability] = useState(false);
@@ -117,9 +119,9 @@ export default function ForceUIPage() {
     }
 
     return (
-        <div className="min-h-screen bg-gradient-to-br from-slate-50 via-purple-50 to-blue-50">
+        <div className="min-h-screen bg-gradient-to-br from-slate-50 via-purple-50 to-blue-50 dark:from-gray-950 dark:via-gray-900 dark:to-slate-900 transition-colors duration-300">
             {/* Header */}
-            <header className="sticky top-0 z-50 border-b border-white/20 bg-white/80 backdrop-blur-xl">
+            <header className="sticky top-0 z-50 border-b border-white/20 dark:border-gray-800/50 bg-white/80 dark:bg-gray-900/80 backdrop-blur-xl">
                 <div className="container mx-auto px-6 py-4">
                     <div className="flex items-center justify-between">
                         <div className="flex items-center gap-4">
@@ -133,7 +135,7 @@ export default function ForceUIPage() {
                                 <h1 className="bg-gradient-to-r from-purple-600 to-blue-600 bg-clip-text text-2xl font-bold text-transparent">
                                     ForceUI
                                 </h1>
-                                <p className="text-sm text-gray-600">
+                                <p className="text-sm text-gray-600 dark:text-gray-400">
                                     The Self-Evolving Application Framework
                                 </p>
                             </div>
@@ -151,31 +153,29 @@ export default function ForceUIPage() {
                             {/* Analytics Button */}
                             <button
                                 onClick={() => setShowAnalytics(true)}
-                                className="hidden lg:flex items-center gap-2 rounded-lg bg-indigo-100 px-3 py-2 text-sm font-medium text-indigo-700 transition-all hover:bg-indigo-200"
+                                className="hidden lg:flex items-center gap-2 rounded-lg bg-indigo-100 dark:bg-indigo-900/30 px-3 py-2 text-sm font-medium text-indigo-700 dark:text-indigo-300 transition-all hover:bg-indigo-200 dark:hover:bg-indigo-900/50"
                             >
                                 <Activity className="h-4 w-4" />
                                 Analytics
                             </button>
 
+                            {/* About Link */}
+                            <Link
+                                href="/about"
+                                className="hidden lg:flex items-center gap-2 rounded-lg border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 px-3 py-2 text-sm font-medium text-gray-700 dark:text-gray-300 transition-all hover:bg-gray-50 dark:hover:bg-gray-700"
+                            >
+                                <Users className="h-4 w-4" />
+                                About
+                            </Link>
+
                             {/* Export Button */}
                             <ExportButton />
 
-                            {/* Explainability Toggle */}
-                            <button
-                                onClick={() => setShowExplainability(!showExplainability)}
-                                className={`group relative flex items-center gap-2 overflow-hidden rounded-lg px-4 py-2.5 text-sm font-medium transition-all duration-300 ${showExplainability
-                                    ? "bg-gradient-to-r from-purple-600 to-blue-600 text-white shadow-lg shadow-purple-500/25"
-                                    : "bg-white text-gray-700 shadow-md hover:shadow-lg"
-                                    }`}
-                            >
-                                <Brain className={`h-4 w-4 transition-transform duration-300 ${showExplainability ? 'scale-110' : ''}`} />
-                                <span className="relative z-10">
-                                    {showExplainability ? "Hide" : "Show"} AI Reasoning
-                                </span>
-                                {!showExplainability && (
-                                    <span className="absolute inset-0 bg-gradient-to-r from-purple-600 to-blue-600 opacity-0 transition-opacity group-hover:opacity-10" />
-                                )}
-                            </button>
+                            {/* Dark Mode Toggle */}
+                            <ModeToggle />
+
+                            {/* Interaction Separator */}
+                            <div className="h-6 w-px bg-gray-200 dark:bg-gray-700 mx-1" />
 
                             {/* Persona Switcher Dropdown */}
                             <PersonaDropdown />
@@ -188,10 +188,10 @@ export default function ForceUIPage() {
                 {/* Hero Section with Intent Chat */}
                 <div className={`mb-10 ${showWelcome ? 'animate-fade-in-up' : ''}`}>
                     <div className="mb-8 text-center">
-                        <h2 className="mb-3 text-4xl font-bold text-gray-900">
+                        <h2 className="mb-3 text-4xl font-bold text-gray-900 dark:text-gray-100">
                             What would you like to <span className="bg-gradient-to-r from-purple-600 to-blue-600 bg-clip-text text-transparent">build</span> today?
                         </h2>
-                        <p className="text-lg text-gray-600">
+                        <p className="text-lg text-gray-600 dark:text-gray-400">
                             Describe your needs in natural language, and watch the UI assemble itself
                         </p>
                     </div>
@@ -281,19 +281,19 @@ export default function ForceUIPage() {
                             <div className="mt-8 animate-fade-in-up" style={{ animationDelay: `${activeComponents.length * 150 + 200}ms` }}>
                                 <button
                                     onClick={() => setShowExplainability(!showExplainability)}
-                                    className="group w-full rounded-xl border border-purple-200 bg-gradient-to-r from-purple-50 to-indigo-50 p-4 transition-all hover:border-purple-300 hover:shadow-lg"
+                                    className="group w-full rounded-xl border border-purple-200 dark:border-purple-800 bg-gradient-to-r from-purple-50 to-indigo-50 dark:from-gray-900 dark:to-indigo-900/30 p-4 transition-all hover:border-purple-300 dark:hover:border-purple-700 hover:shadow-lg"
                                 >
                                     <div className="flex items-center justify-between">
                                         <div className="flex items-center gap-3">
-                                            <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-gradient-to-br from-purple-500 to-indigo-600 text-white shadow-md">
+                                            <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-gradient-to-br from-purple-500 to-indigo-600 text-white shadow-md">
                                                 <Brain className="h-5 w-5" />
                                             </div>
                                             <div className="text-left">
-                                                <p className="font-semibold text-gray-900">How AI Built This UI</p>
-                                                <p className="text-sm text-gray-600">See the reasoning, component selection & MCP data used</p>
+                                                <p className="font-semibold text-gray-900 dark:text-gray-100">How AI Built This UI</p>
+                                                <p className="text-sm text-gray-600 dark:text-gray-400">See the reasoning, component selection & MCP data used</p>
                                             </div>
                                         </div>
-                                        <div className={`flex h-8 w-8 items-center justify-center rounded-full bg-purple-100 text-purple-600 transition-transform duration-300 ${showExplainability ? 'rotate-180' : ''}`}>
+                                        <div className={`flex h-8 w-8 items-center justify-center rounded-full bg-purple-100 dark:bg-purple-900/50 text-purple-600 dark:text-purple-400 transition-transform duration-300 ${showExplainability ? 'rotate-180' : ''}`}>
                                             <ChevronDown className="h-5 w-5" />
                                         </div>
                                     </div>
@@ -302,7 +302,7 @@ export default function ForceUIPage() {
                                 {/* Expanded AI Reasoning Content */}
                                 {showExplainability && (
                                     <div className="mt-4 animate-fade-in-up">
-                                        <div className="rounded-xl border border-purple-200 bg-white p-6 shadow-lg">
+                                        <div className="rounded-xl border border-purple-200 dark:border-purple-900 bg-white dark:bg-gray-900 p-6 shadow-lg">
                                             <ExplainabilityPanel {...formatExplainabilityData(currentLog)} />
                                         </div>
                                     </div>
@@ -312,15 +312,15 @@ export default function ForceUIPage() {
                     </div>
                 ) : showWelcome && !isProcessing ? (
                     /* Welcome State */
-                    <div className="animate-fade-in-up rounded-2xl border-2 border-dashed border-purple-200 bg-gradient-to-br from-white to-purple-50/50 p-12">
+                    <div className="animate-fade-in-up rounded-2xl border-2 border-dashed border-purple-200 dark:border-purple-800 bg-gradient-to-br from-white to-purple-50/50 dark:from-gray-900 dark:to-purple-950/30 p-12">
                         <div className="text-center">
-                            <div className="mb-6 inline-flex items-center justify-center rounded-full bg-gradient-to-r from-purple-100 to-blue-100 p-6">
-                                <Rocket className="h-12 w-12 text-purple-600 animate-float" />
+                            <div className="mb-6 inline-flex items-center justify-center rounded-full bg-gradient-to-r from-purple-100 to-blue-100 dark:from-purple-900/50 dark:to-blue-900/50 p-6">
+                                <Rocket className="h-12 w-12 text-purple-600 dark:text-purple-400 animate-float" />
                             </div>
-                            <h2 className="mb-3 text-3xl font-bold text-gray-900">
+                            <h2 className="mb-3 text-3xl font-bold text-gray-900 dark:text-gray-100">
                                 Welcome to the Future of UI
                             </h2>
-                            <p className="mb-8 text-lg text-gray-600 max-w-xl mx-auto">
+                            <p className="mb-8 text-lg text-gray-600 dark:text-gray-300 max-w-xl mx-auto">
                                 ForceUI understands your intent and automatically assembles the perfect interface.
                                 No more hunting through menus — just describe what you need.
                             </p>
@@ -335,17 +335,17 @@ export default function ForceUIPage() {
                                 ].map(({ icon: Icon, label }, i) => (
                                     <div
                                         key={label}
-                                        className="animate-fade-in-up flex items-center gap-2 rounded-full bg-white px-4 py-2 shadow-md"
+                                        className="animate-fade-in-up flex items-center gap-2 rounded-full bg-white dark:bg-gray-800 px-4 py-2 shadow-md"
                                         style={{ animationDelay: `${i * 100}ms` }}
                                     >
-                                        <Icon className="h-4 w-4 text-purple-600" />
-                                        <span className="text-sm font-medium text-gray-700">{label}</span>
+                                        <Icon className="h-4 w-4 text-purple-600 dark:text-purple-400" />
+                                        <span className="text-sm font-medium text-gray-700 dark:text-gray-300">{label}</span>
                                     </div>
                                 ))}
                             </div>
 
                             {/* Example Prompts */}
-                            <p className="mb-4 text-sm font-medium text-gray-500">Try these examples:</p>
+                            <p className="mb-4 text-sm font-medium text-gray-500 dark:text-gray-400">Try these examples:</p>
                             <div className="flex flex-wrap justify-center gap-3">
                                 {[
                                     "Plan a product launch",
@@ -356,11 +356,11 @@ export default function ForceUIPage() {
                                     <button
                                         key={example}
                                         onClick={() => handleIntentSubmit(example)}
-                                        className="animate-fade-in-up group relative overflow-hidden rounded-xl border border-purple-200 bg-white px-5 py-3 text-sm font-medium text-purple-700 shadow-sm transition-all hover:border-purple-400 hover:shadow-md"
+                                        className="animate-fade-in-up group relative overflow-hidden rounded-xl border border-purple-200 dark:border-purple-700 bg-white dark:bg-gray-800 px-5 py-3 text-sm font-medium text-purple-700 dark:text-purple-300 shadow-sm transition-all hover:border-purple-400 dark:hover:border-purple-500 hover:shadow-md"
                                         style={{ animationDelay: `${200 + i * 100}ms` }}
                                     >
                                         <span className="relative z-10">{example}</span>
-                                        <span className="absolute inset-0 bg-gradient-to-r from-purple-100 to-blue-100 opacity-0 transition-opacity group-hover:opacity-100" />
+                                        <span className="absolute inset-0 bg-gradient-to-r from-purple-100 to-blue-100 dark:from-purple-900/50 dark:to-blue-900/50 opacity-0 transition-opacity group-hover:opacity-100" />
                                     </button>
                                 ))}
                             </div>

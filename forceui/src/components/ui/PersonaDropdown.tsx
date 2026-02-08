@@ -101,7 +101,7 @@ export function PersonaDropdown() {
                         animate={{ opacity: 1, y: 0, scale: 1 }}
                         exit={{ opacity: 0, y: -10, scale: 0.95 }}
                         transition={{ type: "spring", stiffness: 400, damping: 30 }}
-                        className="absolute right-0 top-full mt-2 w-64 rounded-xl border border-gray-200 bg-white p-2 shadow-xl z-50"
+                        className="absolute right-0 top-full mt-2 w-64 rounded-xl border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-900 p-2 shadow-xl z-50"
                     >
                         <div className="mb-2 px-2 py-1">
                             <p className="text-xs font-medium text-gray-500 uppercase tracking-wider">Select Persona</p>
@@ -120,8 +120,8 @@ export function PersonaDropdown() {
                                         transition={{ delay: index * 0.05 }}
                                         onClick={() => handleSelectPersona(persona)}
                                         className={`flex w-full items-center gap-3 rounded-lg p-3 transition-all ${isActive
-                                                ? 'bg-purple-50 ring-2 ring-purple-200'
-                                                : 'hover:bg-gray-50'
+                                            ? 'bg-purple-50 dark:bg-purple-900/30 ring-2 ring-purple-200 dark:ring-purple-700'
+                                            : 'hover:bg-gray-50 dark:hover:bg-gray-800'
                                             }`}
                                     >
                                         <div className={`flex h-9 w-9 items-center justify-center rounded-lg ${persona.color} text-white`}>
@@ -129,12 +129,12 @@ export function PersonaDropdown() {
                                         </div>
                                         <div className="flex-1 text-left">
                                             <div className="flex items-center gap-2">
-                                                <p className="text-sm font-medium text-gray-900">{persona.name}</p>
+                                                <p className="text-sm font-medium text-gray-900 dark:text-gray-100">{persona.name}</p>
                                                 {isActive && (
-                                                    <Check className="h-4 w-4 text-purple-600" />
+                                                    <Check className="h-4 w-4 text-purple-600 dark:text-purple-400" />
                                                 )}
                                             </div>
-                                            <p className="text-xs text-gray-500">{persona.description}</p>
+                                            <p className="text-xs text-gray-500 dark:text-gray-400">{persona.description}</p>
                                         </div>
                                     </motion.button>
                                 );
