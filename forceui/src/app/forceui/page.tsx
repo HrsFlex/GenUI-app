@@ -93,9 +93,8 @@ export default function ForceUIPage() {
 
         await processIntent(input);
 
-        // Stage 5: Complete
+        // Stage 5: Complete - don't auto-show AI reasoning, just show results
         setProcessingStage("");
-        setShowExplainability(true);
         toast.success("UI Ready!", `${activeComponents.length || 3} components assembled for you`);
     };
 
@@ -223,13 +222,6 @@ export default function ForceUIPage() {
                     </div>
                 )}
 
-                {/* Explainability Panel */}
-                {showExplainability && currentLog && !isProcessing && (
-                    <div className="animate-fade-in-up mb-8">
-                        <ExplainabilityPanel {...formatExplainabilityData(currentLog)} />
-                    </div>
-                )}
-
                 {/* Dynamic Component Area */}
                 {lastSelection && activeComponents.length > 0 && !isProcessing ? (
                     <div className="mb-10 animate-fade-in">
@@ -283,6 +275,40 @@ export default function ForceUIPage() {
                                 );
                             })}
                         </AdaptiveGrid>
+
+                        {/* Collapsible AI Reasoning Section */}
+                        {currentLog && (
+                            <div className="mt-8 animate-fade-in-up" style={{ animationDelay: `${activeComponents.length * 150 + 200}ms` }}>
+                                <button
+                                    onClick={() => setShowExplainability(!showExplainability)}
+                                    className="group w-full rounded-xl border border-purple-200 bg-gradient-to-r from-purple-50 to-indigo-50 p-4 transition-all hover:border-purple-300 hover:shadow-lg"
+                                >
+                                    <div className="flex items-center justify-between">
+                                        <div className="flex items-center gap-3">
+                                            <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-gradient-to-br from-purple-500 to-indigo-600 text-white shadow-md">
+                                                <Brain className="h-5 w-5" />
+                                            </div>
+                                            <div className="text-left">
+                                                <p className="font-semibold text-gray-900">How AI Built This UI</p>
+                                                <p className="text-sm text-gray-600">See the reasoning, component selection & MCP data used</p>
+                                            </div>
+                                        </div>
+                                        <div className={`flex h-8 w-8 items-center justify-center rounded-full bg-purple-100 text-purple-600 transition-transform duration-300 ${showExplainability ? 'rotate-180' : ''}`}>
+                                            <ChevronDown className="h-5 w-5" />
+                                        </div>
+                                    </div>
+                                </button>
+
+                                {/* Expanded AI Reasoning Content */}
+                                {showExplainability && (
+                                    <div className="mt-4 animate-fade-in-up">
+                                        <div className="rounded-xl border border-purple-200 bg-white p-6 shadow-lg">
+                                            <ExplainabilityPanel {...formatExplainabilityData(currentLog)} />
+                                        </div>
+                                    </div>
+                                )}
+                            </div>
+                        )}
                     </div>
                 ) : showWelcome && !isProcessing ? (
                     /* Welcome State */
