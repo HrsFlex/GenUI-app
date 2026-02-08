@@ -14,14 +14,25 @@ ForceUI is a **next-generation Generative UI framework** that revolutionizes how
 
 ## 📸 Gallery
 
+### Main Dashboard
 ![Dashboard View](./screenshots/dashboard.png)
-*Dynamic Dashboard Generation*
+*ForceUI's adaptive dashboard with timeline, stats, and component orchestration*
 
-![Dark Mode](./screenshots/dark-mode.png)
-*Sleek Dark Mode Experience*
+### Dark Mode
+![Dark Mode Dashboard](./screenshots/darkboard.png)
+*Sleek dark mode experience with full theme support*
 
-![Explainability](./screenshots/explainability.png)
-*Transparent AI Reasoning*
+### Analytics Dashboard
+![Analytics](./screenshots/analytis.png)
+*Real-time analytics and metrics visualization*
+
+### MCP Integration
+![MCP Status](./screenshots/mcp.png)
+*Model Context Protocol integrations with GitHub, Calendar, and more*
+
+### Results View
+![Generated Results](./screenshots/result.png)
+*AI-generated UI components based on user intent*
 
 ## ✨ Core Features
 
