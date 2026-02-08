@@ -6,14 +6,5 @@
             "src": "package.json",
             "use": "@vercel/next"
         }
-    ],
-    "routes": [
-        {
-            "src": "/(.*)",
-            "dest": "/$1"
-        }
-    ],
-    "env": {
-        "NEXT_PUBLIC_TAMBO_API_KEY": "@tambo_api_key"
-    }
+    ]
 }
